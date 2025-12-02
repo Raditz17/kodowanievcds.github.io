@@ -1,0 +1,546 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<title>VCDS w pigułce — Kodowania</title>
+	
+	<meta name="description" content="Opis w Google" />
+	<meta name="keywords" content="słowa, kluczowe, wypisane, po, porzecinku" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+	<style>
+	  /* --- Sekcja stylów dla tutoriali (możesz przenieść do style.css) --- */
+	  .tutorials-section{max-width:1100px;margin:40px auto;padding:20px}
+	  .tutorials-header{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+	  .tutorials-header h2{font-family: 'Montserrat',sans-serif;margin:0;font-size:28px}
+	  .tutorials-intro{color:#444;font-size:15px}
+
+	  .tutorials-list{display:grid;gap:12px}
+
+	  /* details/summary jako prosty, dostępny akordeon */
+	  .tutorial-item{border:1px solid rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;background:#fff}
+	  .tutorial-item summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-family: 'Montserrat',sans-serif}
+	  .tutorial-item summary::-webkit-details-marker{display:none}
+	  .tutorial-item summary .title{display:flex;flex-direction:column;align-items:flex-start}
+	  .tutorial-item summary .title .small{font-weight:500;font-size:13px;color:#666}
+	  .tutorial-item summary .chev{font-size:18px;transform:rotate(0);transition:transform .22s ease}
+	  .tutorial-item[open] summary .chev{transform:rotate(90deg)}
+
+	  .tutorial-content{padding:0 18px 18px 18px;font-size:15px;color:#333;line-height:1.55}
+	  .tutorial-content ol{margin:8px 0 0 18px}
+	  .tutorial-content pre{background:#f6f6f8;padding:10px;border-radius:6px;overflow:auto}
+
+	  /* responsywność */
+	  @media (max-width:700px){
+	    .tutorials-section{padding:12px;margin:20px}
+	    .tutorials-header h2{font-size:22px}
+	  }
+	</style>
+</head>
+<body>
+
+	<div id="container">
+	<div class="logo-container">
+  <img src="/img/logo.png" alt="logo" class="logo-fixed">
+		</div>
+
+<nav class="nav-bar" role="navigation" aria-label="Główne menu">
+  <ul class="nav-list">
+    <li class="nav-item"><a href="index.html" class="nav-link">Strona główna</a></li>
+    <li class="nav-item"><a href="omnie.html"   class="nav-link">O mnie</a></li>
+    <li class="nav-item"><a href="uslugi.html"class="nav-link">Usługi</a></li>
+    <li class="nav-item"><a href="kodowanie.html"    class="nav-link">Kodowania</a></li>
+    <li class="nav-item"><a href="kontakt.html" class="nav-link">Kontakt</a></li>
+  </ul>
+</nav>
+
+</div>
+<section id="about-vcds" class="about-vcds">
+  <div class="container">
+
+<!-- ===== Sekcja: Tutoriale / Kodowania ===== -->
+<section id="tutorials" class="tutorials-section" aria-label="Poradniki kodowania">
+  <div class="tutorials-header">
+    <h2>Co zmienia konkretne kodowanie?</h2>
+    <p class="tutorials-intro">Poniżej znajdziesz listę poradników. Każdy element możesz rozwinąć, aby zobaczyć instrukcję krok po kroku. </div>
+
+  <div class="tutorials-list">
+
+
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Wyłączenie lub ograniczenie systemu Start-Stop</span>
+      <span class="small">Co się zmienia: system przestaje automatycznie gasić silnik lub robi to rzadziej</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      System Start-Stop można ograniczyć lub całkowicie wyłączyć poprzez zmianę wartości w module
+      odpowiedzialnym za sterowanie energią lub w sterowniku silnika.
+      Poniżej jeden z najczęściej stosowanych sposobów dla grup VAG.
+      <strong>Zawsze rób pełny backup!</strong>
+    </p>
+
+    <ol>
+      <li>Połącz się z pojazdem przez VCDS.</li>
+      <li>Przejdź do modułu: <strong>19 – Gateway CAN</strong> (lub w niektórych modelach <strong>09 – Central Electronics</strong>).</li>
+      <li>Wybierz: <strong>Adaptation</strong>.</li>
+      <li>W polu wyszukiwania wpisz: <strong>Start/Stop</strong> lub <strong>Voltage</strong>.</li>
+      <li>
+        Znajdź parametr:
+        <br><strong>„Battery adaptation – IDE04159-Start/Stop start voltage limit”</strong>
+        (nazwa może się różnić zależnie od modelu).
+      </li>
+      <li>
+        Zmień wartość — wpisz np. <strong>12.4V – 12.8V</strong>.
+        <br>Po tej zmianie system uzna, że napięcie akumulatora jest zbyt niskie, aby aktywować Start-Stop.
+      </li>
+      <li>Potwierdź i zapisz ustawienia.</li>
+      <li>Wyłącz zapłon i włącz ponownie, aby sterownik odczytał nowe wartości.</li>
+    </ol>
+
+    <p>
+      <strong>Efekt:</strong> system Start-Stop przestaje się aktywować lub aktywuje się znacznie rzadziej.
+    </p>
+
+    <p style="margin-top:8px;">
+      <strong>Uwaga:</strong> metoda różni się w zależności od modelu, rocznika i wersji oprogramowania sterownika.
+      W niektórych autach dostęp do tej funkcji wymaga logowania lub edycji kodowania długiego.
+    </p>
+  </div>
+</details>
+
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Migające kierunkowskazy przy zamykaniu pojazdu</span>
+      <span class="small">Co się zmienia: kierunkowskazy mrugają po zamknięciu auta jako potwierdzenie</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja potwierdzająca zamknięcie samochodu krótkim błyskiem kierunkowskazów
+      (tzw. <strong>Confirm Flash</strong>) może być domyślnie wyłączona w niektórych modelach.
+      Poniższa instrukcja pokazuje, jak ją aktywować w VCDS.
+    </p>
+
+    <ol>
+      <li>Połącz się z pojazdem przez VCDS.</li>
+      <li>Wejdź do modułu: <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz: <strong>Coding – Long Coding Helper</strong>.</li>
+      <li>
+        Przejdź do bajtu odpowiedzialnego za funkcje potwierdzające (najczęściej 
+        <strong>Byte 1</strong> lub <strong>Byte 10–12</strong>, zależnie od modelu).
+      </li>
+      <li>
+        Zaznacz opcję:
+        <br><strong>“Comfort Closing Confirmation (Turn Signals)”</strong>
+        lub <strong>„Acoustic/Optical Confirmation – Lock”</strong>.
+      </li>
+      <li>Zapisz kodowanie i wyjdź z modułu.</li>
+      <li>Zamknij auto pilotem i sprawdź, czy kierunkowskazy mrugają raz przy zamknięciu.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> po zamknięciu samochodu kierunkowskazy wykonają pojedynczy błysk — kierowca widzi, że auto zostało poprawnie zamknięte.</p>
+
+    <p style="margin-top:8px;">
+      <strong>Uwaga:</strong> w niektórych modelach opcja może być dostępna w adaptacjach, a nie w kodowaniu.
+      Jeśli chcesz, przygotuję osobną wersję poradnika dla np. MQB, PQ35, MQB Evo lub konkretnych marek (VW/Audi/Seat/Skoda).
+    </p>
+  </div>
+</details>
+
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Aktywacja funkcji doświetlania zakrętów</span>
+      <span class="small">Co się zmienia: przeciwmgielne lub światła boczne zapalają się przy skręcie</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja <strong>Cornering Lights</strong> wykorzystuje przednie światła przeciwmgielne lub moduły LED,
+      aby doświetlić obszar w kierunku skrętu przy małych prędkościach.
+      Kodowanie zależy od platformy auta, ale w większości modeli VAG wygląda podobnie.
+    </p>
+
+    <ol>
+      <li>Połącz się z pojazdem przez VCDS.</li>
+      <li>Przejdź do modułu <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz: <strong>Adaptation</strong>.</li>
+      <li>W wyszukiwarce wpisz: <strong>cornering</strong> lub <strong>Abbiegelicht</strong>.</li>
+
+      <li>
+        Znajdź parametr:
+        <br><strong>„Comfort illumination – Cornering Lights”</strong>
+        <br>lub (w niektórych modelach MQB):
+        <br><strong>„ENG141647-ENG116598-Leuchte2SL VLB10-Lichtfunktion B 2”</strong>.
+      </li>
+
+      <li>
+        Zmień wartość na:
+        <br><strong>„Cornering light”</strong>  
+        lub  
+        <strong>„Abbiegelicht”</strong> (w zależności od języka sterownika).
+      </li>
+
+      <li>
+        Jeśli opcja istnieje, ustaw także:
+        <br><strong>„Cornering Light via Fog Lights → Active”</strong>.
+      </li>
+
+      <li>Zapisz adaptacje.</li>
+
+      <li>Wyłącz zapłon, odczekaj kilka sekund i włącz ponownie.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> podczas skręcania kierownicą przy niskiej prędkości (zwykle < 40 km/h), światło przeciwmgielne lub boczny moduł LED włączy się automatycznie, aby oświetlić zakręt.</p>
+
+    <p style="margin-top:8px;">
+      <strong>Uwaga:</strong> w starszych modelach funkcja może wymagać kodowania długiego (Long Coding) zamiast adaptacji.
+      Jeśli podasz mi markę, model i rok samochodu — przygotuję dokładny poradnik pod konkretny sterownik.
+    </p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Komfortowe domykanie szyb z pilota</span>
+      <span class="small">Co się zmienia: przytrzymanie zamykania pilota domyka wszystkie szyby</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja pozwala domknąć szyby i często szyberdach przez dłuższe przytrzymanie przycisku 
+      zamykania na pilocie. W wielu autach VAG jest ukryta w adaptacjach.
+    </p>
+
+    <ol>
+      <li>Połącz się z VCDS.</li>
+      <li>Przejdź do modułu <strong>46 – Central Convenience</strong> lub w nowszych autach <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz <strong>Adaptation</strong>.</li>
+      <li>
+        Wyszukaj parametr:
+        <br><strong>„Comfort opening/closing”</strong>  
+        lub  
+        <strong>„ZV Komfortschliessen”</strong>.
+      </li>
+      <li>Ustaw wartości na <strong>Active / Enabled</strong>.</li>
+      <li>Jeśli dostępne – zaznacz także:
+        <br><strong>„Comfort closing via remote → Active”</strong>.
+      </li>
+      <li>Zapisz zmiany.</li>
+      <li>Przetestuj: przytrzymaj przycisk zamykania na pilocie – szyby powinny się domknąć.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> jedno dłuższe przytrzymanie przycisku zamykania pozwala zamknąć wszystkie szyby.</p>
+
+    <p style="margin-top:8px;"><strong>Uwaga:</strong> w niektórych modelach wymagane jest włączenie tej funkcji zarówno w module 46, jak i 09.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Automatyczne ryglowanie drzwi przy 15 km/h</span>
+      <span class="small">Co się zmienia: drzwi automatycznie zamykają się przy ruszeniu</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja <strong>Auto-Lock</strong> automatycznie zamyka drzwi po przekroczeniu określonej prędkości 
+      (zwykle 15 km/h). Można ją aktywować w większości modeli VAG.
+    </p>
+
+    <ol>
+      <li>Uruchom VCDS.</li>
+      <li>Wejdź do modułu <strong>46 – Central Convenience</strong> lub w autach MQB: <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz <strong>Coding</strong> lub <strong>Adaptation</strong> (zależnie od modelu).</li>
+
+      <li>
+        W kodowaniu szukaj opcji:
+        <br><strong>„Auto Lock / Locking at Speed”</strong>  
+        lub  
+        <strong>„Geschwindigkeitsabhaengige Verriegelung”</strong>.
+      </li>
+
+      <li>Zaznacz funkcję jako <strong>Enabled / Active</strong>.</li>
+      <li>Zapisz kodowanie.</li>
+      <li>Wykonaj jazdę próbną – przy ~15 km/h drzwi powinny się automatycznie zaryglować.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> drzwi zamykają się same po rozpoczęciu jazdy, zwiększając bezpieczeństwo.</p>
+
+    <p style="margin-top:8px;"><strong>Uwaga:</strong> prędkość aktywacji zależy od sterownika – niektóre auta pozwalają ją ustawić, inne mają ją zablokowaną na ~15 km/h.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Wyłączenie sygnału niezapiętych pasów</span>
+      <span class="small">Co się zmienia: auto przestaje piszczeć przy niezapiętych pasach</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja wyłącza dźwiękowy sygnał ostrzegający o niezapiętym pasie kierowcy/pasażera.
+      W wielu modelach wymaga edycji kodowania długiego.
+      <br><strong>Uwaga: pasy zawsze należy zapinać – poradnik służy głównie do testów diagnostycznych.</strong>
+    </p>
+
+    <ol>
+      <li>Połącz się z VCDS.</li>
+      <li>Wejdź w moduł <strong>17 – Instruments (Kombiinstrument)</strong>.</li>
+      <li>Wybierz <strong>Coding – Long Coding Helper</strong>.</li>
+      <li>
+        Odszukaj bajt odpowiedzialny za sygnały ostrzegawcze (często <strong>Byte 1</strong> lub <strong>Byte 2</strong>).
+      </li>
+      <li>
+        Odznacz bit:  
+        <br><strong>„Seat Belt Warning – Active”</strong>  
+        lub  
+        <strong>„Gurtwarnung”</strong>.
+      </li>
+      <li>Zapisz kodowanie.</li>
+      <li>Wyłącz i włącz zapłon. Sygnał pasów nie powinien się pojawić.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> brak dźwiękowego alarmu przy niezapiętych pasach.</p>
+
+    <p style="margin-top:8px;">
+      <strong>Uwaga:</strong> w niektórych autach MQB funkcja jest przeniesiona do adaptacji w module 17 – mogę przygotować dokładny poradnik pod Twój model.
+    </p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Test wskazówek zegarów (Needle Sweep)</span>
+      <span class="small">Co się zmienia: wskazówki wykonują pełen ruch po włączeniu zapłonu</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja Needle Sweep uruchamia test zegarów – wskazówki prędkościomierza i obrotomierza wykonują pełny ruch po przekręceniu zapłonu.
+    </p>
+
+    <ol>
+      <li>Połącz się z VCDS.</li>
+      <li>Przejdź do modułu <strong>17 – Instruments</strong>.</li>
+      <li>Wybierz <strong>Coding – Long Coding Helper</strong>.</li>
+      <li>
+        Znajdź bit odpowiedzialny za test wskazówek (zwykle w <strong>Byte 1</strong> lub <strong>Byte 0</strong>).
+      </li>
+      <li>Zaznacz opcję <strong>„Gauge Test / Staging”</strong>.</li>
+      <li>Zapisz kodowanie i uruchom ponownie zapłon.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> po włączeniu zapłonu wskazówki wykonują widowiskowy pełny skok.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Automatyczne światła</span>
+      <span class="small">Co się zmienia: światła włączają się automatycznie w zależności od jasności</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      W autach wyposażonych w czujnik zmierzchu można aktywować tryb automatyczny, jeśli nie jest domyślnie aktywny.
+    </p>
+
+    <ol>
+      <li>Wejdź do modułu <strong>09 – Central Electronics</strong>.</li>
+      <li>Przejdź do <strong>Adaptation</strong>.</li>
+      <li>
+        Wyszukaj parametr:
+        <br><strong>„Light sensor – activation”</strong>  
+        lub  
+        <strong>„Automatic headlights”</strong>.
+      </li>
+      <li>Ustaw wartość <strong>Active / Enabled</strong>.</li>
+      <li>
+        W razie potrzeby ustaw również:
+        <br><strong>„Sensitivity threshold”</strong> – poziom jasności, przy którym światła mają się włączać.
+      </li>
+      <li>Zapisz ustawienia.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> auto samo włącza światła, gdy robi się ciemno.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Zmiana jasności oświetlenia LED</span>
+      <span class="small">Co się zmienia: regulujesz poziom jasności LED DRL lub wnętrza</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Sterowniki MQB pozwalają na zmianę jasności świateł do jazdy dziennej (DRL) oraz podświetlenia wnętrza.
+    </p>
+
+    <ol>
+      <li>Połącz się z VCDS.</li>
+      <li>Wejdź do modułu <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz <strong>Adaptation</strong>.</li>
+      <li>Wyszukaj pole: <strong>„Leuchte… Dimmwert”</strong> lub <strong>„Brightness”</strong>.</li>
+
+      <li>
+        Dla DRL może to być np.:
+        <br><strong>„Leuchte2SL VLB10 – Dimmwert AB 2”</strong>.
+      </li>
+
+      <li>Zmień wartość na przedział <strong>10–100%</strong> w zależności od preferencji.</li>
+      <li>Zapisz adaptację.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> światła LED świecą mocniej, słabiej lub tak, jak preferujesz.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Coming Home</span>
+      <span class="small">Co się zmienia: światła świecą po zgaszeniu silnika, aby doświetlić drogę do domu</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Coming Home uruchamia światła po wyłączeniu zapłonu, aby oświetlić otoczenie pojazdu.
+    </p>
+
+    <ol>
+      <li>Wejdź do modułu <strong>09 – Central Electronics</strong>.</li>
+      <li>Przejdź do <strong>Adaptation</strong>.</li>
+      <li>Wyszukaj parametr:
+        <br><strong>„Coming Home – activation”</strong>  
+        lub  
+        <strong>„Komfortbeleuchtung Coming Home”</strong>.
+      </li>
+      <li>Ustaw: <strong>Active</strong>.</li>
+      <li>
+        Skonfiguruj czas:
+        <br><strong>„Coming Home – duration”</strong> (np. 10–40 sec).
+      </li>
+      <li>W niektórych modelach możesz ustawić tryb manualny/automatyczny.</li>
+      <li>Zapisz ustawienia.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> po wyłączeniu samochodu światła świecą przez ustawiony czas.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Leaving Home</span>
+      <span class="small">Co się zmienia: światła włączają się po otwarciu auta, zanim wejdziesz do środka</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Leaving Home uruchamia światła po odblokowaniu pojazdu, ułatwiając dojście do auta w ciemności.
+    </p>
+
+    <ol>
+      <li>Połącz się z modułem <strong>09 – Central Electronics</strong>.</li>
+      <li>Wybierz <strong>Adaptation</strong>.</li>
+
+      <li>
+        Wyszukaj parametr:
+        <br><strong>„Leaving Home – activation”</strong>  
+        lub  
+        <strong>„Komfortbeleuchtung Leaving Home”</strong>.
+      </li>
+
+      <li>Ustaw na <strong>Active</strong>.</li>
+      <li>Skonfiguruj czas świecenia: <strong>„Leaving Home – duration”</strong>.</li>
+      <li>Jeśli sterownik pozwala – ustaw współczynnik jasności.</li>
+      <li>Zapisz adaptacje.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> po otwarciu auta światła zapalają się na kilka–kilkanaście sekund.</p>
+  </div>
+</details>
+<details class="tutorial-item">
+  <summary>
+    <div class="title">
+      <span>Asystent świateł drogowych (High Beam Assist)</span>
+      <span class="small">Co się zmienia: auto samo przełącza światła drogowe / mijania</span>
+    </div>
+    <div class="chev">›</div>
+  </summary>
+
+  <div class="tutorial-content">
+    <p>
+      Funkcja HBA wymaga kamery frontowej. Jeśli sprzętowo auto ją posiada, można uruchomić asystenta świateł drogowych.
+    </p>
+
+    <ol>
+      <li>Wejdź do modułu <strong>A5 – Front / Driver Assist Camera</strong>.</li>
+      <li>Wybierz <strong>Coding</strong>.</li>
+      <li>
+        Znajdź opcję:
+        <br><strong>„High Beam Assist / Fernlichtassistent”</strong>.
+      </li>
+      <li>Ustaw wartość <strong>Active</strong>.</li>
+      <li>Zapisz kodowanie.</li>
+      <li>W module <strong>09 – Central Electronics</strong> upewnij się, że funkcja świateł automatycznych jest aktywna.</li>
+      <li>Przetestuj nocą – dźwignia świateł w pozycji AUTO powinna aktywować HBA.</li>
+    </ol>
+
+    <p><strong>Efekt:</strong> auto samo przełącza światła drogowe, gdy droga jest wolna od aut.</p>
+  </div>
+</details>
+
+
+
+  </div>
+
+
+<footer class="sticky-footer">
+  <p>Dawid Płaczek – 2025 © | Kontakt: dawid.placzek25@gmail.com</p>
+</footer>
+
+<script>
+  // Mały skrypt: dostępność — pozwala otwierać/zamykać szczegóły klawiszem Enter/Space gdy summary nie ma fokusa
+  document.querySelectorAll('.tutorial-item summary').forEach(s => {
+    s.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        const details = s.parentElement;
+        details.open = !details.open;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
